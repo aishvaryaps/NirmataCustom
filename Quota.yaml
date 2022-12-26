@@ -1,20 +1,34 @@
 ---
 metadata:
-  name: "small-quota"
+  name: "disallow-test-tag"
   annotations:
-    policies.kyverno.io/category: "MyCustomPolicies"
-    policies.kyverno.io/description: "The ':stable' tag is mutable and can lead to\
+    policies.kyverno.io/category: "customPolicy"
+    policies.kyverno.io/description: "The ':test' tag is mutable and can lead to\
       \ unexpected errors if the image changes.  A best practice is to use an immutable\
       \ tag (e.g. v2.3) that maps to a specific version  of an application pod."
-apiVersion: constraints.gatekeeper.sh/v1beta1
-kind: K8sContainerLimits
-metadata:
-  name: container-must-have-limits
+apiVersion: "kyverno.io/v1"
+kind: "ClusterPolicy"
 spec:
-  match:
-    kinds:
-      - apiGroups: [""]
-        kinds: ["Pod"]
-  parameters:
-    cpu: "200m"
-    memory: "1Gi"
+  rules:
+  - match:
+      resources:
+        kinds:
+        - "Pod"
+    name: "require-image-tag"
+    validate:
+      pattern:
+        spec:
+          containers:
+          - image: "*:*"
+      message: "An image tag is required."
+  - match:
+      resources:
+        kinds:
+        - "Pod"
+    name: "validate-image-tag"
+    validate:
+      pattern:
+        spec:
+          containers:
+          - image: "!*:test"
+      message: "Using the ':test' tag is not recommended."
