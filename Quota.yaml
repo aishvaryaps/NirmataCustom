@@ -1,3 +1,11 @@
+---
+metadata:
+  name: "small-quota"
+  annotations:
+    policies.kyverno.io/category: "MyCustomPolicies"
+    policies.kyverno.io/description: "The ':stable' tag is mutable and can lead to\
+      \ unexpected errors if the image changes.  A best practice is to use an immutable\
+      \ tag (e.g. v2.3) that maps to a specific version  of an application pod."
 apiVersion: constraints.gatekeeper.sh/v1beta1
 kind: K8sContainerLimits
 metadata:
