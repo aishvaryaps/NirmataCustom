@@ -13,8 +13,8 @@ spec:
   - match:
       resources:
         kinds:
-        - "Pod"
-    name: "require-image-tag"
+        - Pod
+    name: require-image-tag
     validate:
       pattern:
         spec:
@@ -24,8 +24,8 @@ spec:
   - match:
       resources:
         kinds:
-        - "Pod"
-    name: "validate-image-tag"
+        - Pod
+    name: validate-image-tag
     validate:
       pattern:
         spec:
