@@ -2,7 +2,10 @@
 metadata:
   name: "disallow-test-tag"
   annotations:
-    policies.kyverno.io/category: "Accenture-Demo-Policy"
+    policies.kyverno.io/title: Demo
+    policies.kyverno.io/category: Accenture-Demo-Policy
+    policies.kyverno.io/severity: major
+    policies.kyverno.io/subject: Pod
     policies.kyverno.io/description: "The ':test' tag is mutable and can lead to\
       \ unexpected errors if the image changes.  A best practice is to use an immutable\
       \ tag (e.g. v2.3) that maps to a specific version  of an application pod."
